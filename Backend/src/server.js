@@ -7,6 +7,7 @@ const connectDB = require("./config/db");
 
 const authRoutes = require("./routes/authRoutes");
 const serviceRoutes = require("./routes/serviceRoutes");
+const bookingRoutes = require("./routes/bookingRoutes");
 
 const app = express();
 
@@ -16,7 +17,7 @@ connectDB();
 // Middleware
 app.use(cors());
 app.use(express.json());
-
+app.use("/api/bookings", bookingRoutes);
 // Home Route
 app.get("/", (req, res) => {
   res.send("HomeHero API Running 🚀");
