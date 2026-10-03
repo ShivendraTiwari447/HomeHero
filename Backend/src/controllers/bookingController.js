@@ -4,6 +4,7 @@ const Service = require("../models/Service");
 // ==========================================
 // CREATE BOOKING - Customer
 // ==========================================
+
 const createBooking = async (req, res) => {
   try {
     const { service, bookingDate, address, description } = req.body;
@@ -58,6 +59,7 @@ const createBooking = async (req, res) => {
 // ==========================================
 // GET MY BOOKINGS - Customer
 // ==========================================
+
 const getMyBookings = async (req, res) => {
   try {
     const bookings = await Booking.find({
@@ -82,6 +84,7 @@ const getMyBookings = async (req, res) => {
 // ==========================================
 // GET PROVIDER BOOKINGS - Provider
 // ==========================================
+
 const getProviderBookings = async (req, res) => {
   try {
     const bookings = await Booking.find({
@@ -104,8 +107,85 @@ const getProviderBookings = async (req, res) => {
 };
 
 // ==========================================
+// GET SINGLE BOOKING
+// Customer / Provider
+// ==========================================
+
+const getBookingById = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const booking = await Booking.findById(id)
+      .populate("customer", "name email")
+      .populate("provider", "name email")
+      .populate("service", "title description price");
+
+    if (!booking) {
+      return res.status(404).json({
+        message: "Booking not found",
+      });
+    }
+
+    // Customer can only see their own booking
+    if (
+      req.user.role === "customer" &&
+      booking.customer._id.toString() !== req.user.userId
+    ) {
+      return res.status(403).json({
+        message: "You are not allowed to view this booking",
+      });
+    }
+
+    // Provider can only see their own booking
+    if (
+      req.user.role === "provider" &&
+      booking.provider._id.toString() !== req.user.userId
+    ) {
+      return res.status(403).json({
+        message: "You are not allowed to view this booking",
+      });
+    }
+
+    res.status(200).json({
+      booking,
+    });
+  } catch (error) {
+    console.error("Get Booking By ID Error:", error);
+
+    res.status(500).json({
+      message: "Server error",
+    });
+  }
+};
+
+// ==========================================
+// GET ALL BOOKINGS - Admin
+// ==========================================
+
+const getAllBookings = async (req, res) => {
+  try {
+    const bookings = await Booking.find()
+      .populate("customer", "name email")
+      .populate("provider", "name email")
+      .populate("service", "title description price")
+      .sort({ createdAt: -1 });
+
+    res.status(200).json({
+      bookings,
+    });
+  } catch (error) {
+    console.error("Get All Bookings Error:", error);
+
+    res.status(500).json({
+      message: "Server error",
+    });
+  }
+};
+
+// ==========================================
 // ACCEPT BOOKING - Provider
 // ==========================================
+
 const acceptBooking = async (req, res) => {
   try {
     const { id } = req.params;
@@ -147,6 +227,7 @@ const acceptBooking = async (req, res) => {
 // ==========================================
 // REJECT BOOKING - Provider
 // ==========================================
+
 const rejectBooking = async (req, res) => {
   try {
     const { id } = req.params;
@@ -188,6 +269,7 @@ const rejectBooking = async (req, res) => {
 // ==========================================
 // CANCEL BOOKING - Customer
 // ==========================================
+
 const cancelBooking = async (req, res) => {
   try {
     const { id } = req.params;
@@ -232,6 +314,7 @@ const cancelBooking = async (req, res) => {
 // ==========================================
 // COMPLETE BOOKING - Provider
 // ==========================================
+
 const completeBooking = async (req, res) => {
   try {
     const { id } = req.params;
@@ -270,10 +353,16 @@ const completeBooking = async (req, res) => {
   }
 };
 
+// ==========================================
+// EXPORTS
+// ==========================================
+
 module.exports = {
   createBooking,
   getMyBookings,
   getProviderBookings,
+  getBookingById,
+  getAllBookings,
   acceptBooking,
   rejectBooking,
   cancelBooking,
