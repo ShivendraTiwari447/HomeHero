@@ -1,6 +1,11 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+
+import "./Services.css";
 
 function Services() {
+  const navigate = useNavigate();
+
   const [services, setServices] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -44,62 +49,70 @@ function Services() {
   }, []);
 
   return (
-    <section className="services-section" id="services">
-      <div className="section-heading">
-        <p>WHAT WE OFFER</p>
+    <div className="services-page">
+      <div className="services-page-header">
+        <p>HOMEHERO SERVICES</p>
 
-        <h2>Popular Services</h2>
+        <h1>Find the Right Service for Your Home</h1>
 
         <span>
-          Choose a service and connect with a trusted professional.
+          Choose from trusted professionals for your home service needs.
         </span>
       </div>
 
       {loading && (
-        <p style={{ textAlign: "center" }}>
+        <p className="services-message">
           Loading services...
         </p>
       )}
 
       {error && (
-        <p
-          style={{
-            textAlign: "center",
-            color: "#dc2626",
-          }}
-        >
+        <p className="services-error">
           {error}
         </p>
       )}
 
       {!loading && !error && (
-        <div className="service-grid">
+        <div className="services-page-grid">
           {services.map((service) => (
-            <div className="service-card" key={service._id}>
-              <div className="service-icon">
+            <div
+              className="services-page-card"
+              key={service._id}
+            >
+              <div className="services-page-icon">
                 {getServiceIcon(service.category)}
               </div>
 
-              <h3>{service.title}</h3>
+              <div className="service-category">
+                {service.category}
+              </div>
+
+              <h2>{service.title}</h2>
 
               <p>{service.description}</p>
 
-              <p className="service-price">
-                ₹{service.price}
-              </p>
+              <div className="service-bottom">
+                <strong>₹{service.price}</strong>
 
-              <button>View Services →</button>
+                <button
+                  onClick={() =>
+                    navigate(`/services/${service._id}`)
+                  }
+                >
+                  View Details →
+                </button>
+              </div>
             </div>
           ))}
         </div>
       )}
 
       {!loading && !error && services.length === 0 && (
-        <p style={{ textAlign: "center" }}>
+        <p className="services-message">
           No services available right now.
         </p>
       )}
-    </section>
+    </div>
   );
 }
 

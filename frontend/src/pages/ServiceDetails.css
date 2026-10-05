@@ -1,0 +1,99 @@
+.service-details-page {
+  min-height: 100vh;
+  background: #f5f7fb;
+  padding: 60px 7%;
+}
+
+.back-btn {
+  border: none;
+  background: transparent;
+  color: #2563eb;
+  font-size: 15px;
+  cursor: pointer;
+  margin-bottom: 25px;
+}
+
+.service-details-card {
+  max-width: 750px;
+  margin: 0 auto;
+  background: white;
+  padding: 45px;
+  border-radius: 18px;
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.08);
+}
+
+.details-icon {
+  font-size: 50px;
+  margin-bottom: 15px;
+}
+
+.details-category {
+  display: inline-block;
+  background: #eff6ff;
+  color: #2563eb;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.service-details-card h1 {
+  font-size: 36px;
+  color: #1f2937;
+  margin: 18px 0 12px;
+}
+
+.details-description {
+  color: #6b7280;
+  line-height: 1.7;
+  font-size: 16px;
+}
+
+.details-info {
+  display: flex;
+  gap: 50px;
+  margin: 30px 0;
+}
+
+.details-info div {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.details-info span {
+  color: #6b7280;
+  font-size: 14px;
+}
+
+.details-info strong {
+  color: #111827;
+  font-size: 20px;
+}
+
+.book-service-btn {
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: 8px;
+  background: #2563eb;
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.book-service-btn:hover {
+  background: #1d4ed8;
+}
+
+.details-message,
+.details-error {
+  text-align: center;
+  padding: 100px 20px;
+}
+
+.details-error {
+  color: #dc2626;
+}

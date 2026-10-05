@@ -510,3 +510,22 @@ footer p {
 
 }
 
+.nav-link-button {
+  border: none;
+  background: transparent;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  padding: 0;
+}
+
+.nav-link-button:hover {
+  color: #2563eb;
+}
+
+.welcome-user {
+  font-weight: 600;
+  color: #374151;
+  margin-right: 10px;
+}
+
