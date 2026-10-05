@@ -6,7 +6,6 @@ function Navbar() {
 
   const [user, setUser] = useState(() => {
     const savedUser = localStorage.getItem("user");
-
     return savedUser ? JSON.parse(savedUser) : null;
   });
 
@@ -21,13 +20,22 @@ function Navbar() {
 
   return (
     <nav className="navbar">
-      <div className="logo">
+      {/* Logo */}
+      <div
+        className="logo"
+        onClick={() => navigate("/")}
+      >
         Home<span>Hero</span>
       </div>
 
+      {/* Navigation Links */}
       <div className="nav-links">
-        <a href="/">Home</a>
+        {/* Home */}
+        <a href="/">
+          Home
+        </a>
 
+        {/* Services */}
         <button
           className="nav-link-button"
           onClick={() => navigate("/services")}
@@ -35,9 +43,61 @@ function Navbar() {
           Services
         </button>
 
-        <a href="/#about">About</a>
+        {/* About */}
+        <a href="/#about">
+          About
+        </a>
+
+        {/* Customer */}
+        {user && user.role === "customer" && (
+          <>
+            <button
+              className="nav-link-button"
+              onClick={() => navigate("/customer-dashboard")}
+            >
+              Dashboard
+            </button>
+
+            <button
+              className="nav-link-button"
+              onClick={() => navigate("/my-bookings")}
+            >
+              My Bookings
+            </button>
+          </>
+        )}
+
+        {/* Provider */}
+        {user && user.role === "provider" && (
+          <>
+            <button
+              className="nav-link-button"
+              onClick={() => navigate("/provider-dashboard")}
+            >
+              Dashboard
+            </button>
+
+            <button
+              className="nav-link-button"
+              onClick={() => navigate("/provider-bookings")}
+            >
+              Customer Bookings
+            </button>
+          </>
+        )}
+
+        {/* Admin */}
+        {user && user.role === "admin" && (
+          <button
+            className="nav-link-button"
+            onClick={() => navigate("/admin-dashboard")}
+          >
+            Dashboard
+          </button>
+        )}
       </div>
 
+      {/* Login / User Section */}
       <div className="nav-buttons">
         {user ? (
           <>

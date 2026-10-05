@@ -1,0 +1,115 @@
+.admin-users-page {
+  min-height: 100vh;
+  padding: 40px 20px;
+  background: #f5f7fb;
+}
+
+.admin-users-container {
+  max-width: 1200px;
+  margin: auto;
+}
+
+.admin-users-container h1 {
+  margin-bottom: 8px;
+  color: #222;
+}
+
+.admin-users-subtitle {
+  color: #666;
+  margin-bottom: 30px;
+}
+
+.users-table-wrapper {
+  background: white;
+  border-radius: 12px;
+  overflow-x: auto;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+.users-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 850px;
+}
+
+.users-table th,
+.users-table td {
+  padding: 15px;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+}
+
+.users-table th {
+  background: #f8f9fc;
+  color: #333;
+}
+
+.users-table td {
+  color: #555;
+}
+
+.role-badge {
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 13px;
+  text-transform: capitalize;
+}
+
+.role-badge.customer {
+  background: #e8f4ff;
+  color: #1677c8;
+}
+
+.role-badge.provider {
+  background: #fff3df;
+  color: #c47a00;
+}
+
+.role-badge.admin {
+  background: #eee;
+  color: #333;
+}
+
+.status-active {
+  color: green;
+  font-weight: 600;
+}
+
+.status-restricted {
+  color: red;
+  font-weight: 600;
+}
+
+.status-admin {
+  color: #555;
+  font-weight: 600;
+}
+
+.restrict-btn,
+.unrestrict-btn {
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.restrict-btn {
+  background: #dc3545;
+  color: white;
+}
+
+.unrestrict-btn {
+  background: #198754;
+  color: white;
+}
+
+.no-action {
+  color: #999;
+  font-size: 13px;
+}
+
+.admin-users-loading {
+  text-align: center;
+  margin-top: 100px;
+}
