@@ -7,11 +7,17 @@ const Service = require("../models/Service");
 
 const createBooking = async (req, res) => {
   try {
-    const { service, bookingDate, address, description } = req.body;
+    const {
+      service,
+      bookingDate,
+      address,
+      description,
+    } = req.body;
 
     if (!service || !bookingDate || !address) {
       return res.status(400).json({
-        message: "Service, booking date and address are required",
+        message:
+          "Service, booking date and address are required",
       });
     }
 
@@ -20,6 +26,13 @@ const createBooking = async (req, res) => {
     if (!selectedService) {
       return res.status(404).json({
         message: "Service not found",
+      });
+    }
+
+    // Inactive service cannot be booked
+    if (!selectedService.isActive) {
+      return res.status(400).json({
+        message: "This service is currently unavailable",
       });
     }
 
@@ -38,10 +51,15 @@ const createBooking = async (req, res) => {
       description,
     });
 
-    const populatedBooking = await Booking.findById(booking._id)
+    const populatedBooking = await Booking.findById(
+      booking._id
+    )
       .populate("customer", "name email")
       .populate("provider", "name email")
-      .populate("service", "title description price");
+      .populate(
+        "service",
+        "title description price"
+      );
 
     res.status(201).json({
       message: "Booking created successfully",
@@ -66,14 +84,20 @@ const getMyBookings = async (req, res) => {
       customer: req.user.userId,
     })
       .populate("provider", "name email")
-      .populate("service", "title description price")
+      .populate(
+        "service",
+        "title description price"
+      )
       .sort({ createdAt: -1 });
 
     res.status(200).json({
       bookings,
     });
   } catch (error) {
-    console.error("Get My Bookings Error:", error);
+    console.error(
+      "Get My Bookings Error:",
+      error
+    );
 
     res.status(500).json({
       message: "Server error",
@@ -91,14 +115,20 @@ const getProviderBookings = async (req, res) => {
       provider: req.user.userId,
     })
       .populate("customer", "name email")
-      .populate("service", "title description price")
+      .populate(
+        "service",
+        "title description price"
+      )
       .sort({ createdAt: -1 });
 
     res.status(200).json({
       bookings,
     });
   } catch (error) {
-    console.error("Get Provider Bookings Error:", error);
+    console.error(
+      "Get Provider Bookings Error:",
+      error
+    );
 
     res.status(500).json({
       message: "Server error",
@@ -118,7 +148,10 @@ const getBookingById = async (req, res) => {
     const booking = await Booking.findById(id)
       .populate("customer", "name email")
       .populate("provider", "name email")
-      .populate("service", "title description price");
+      .populate(
+        "service",
+        "title description price"
+      );
 
     if (!booking) {
       return res.status(404).json({
@@ -129,20 +162,24 @@ const getBookingById = async (req, res) => {
     // Customer can only see their own booking
     if (
       req.user.role === "customer" &&
-      booking.customer._id.toString() !== req.user.userId
+      booking.customer._id.toString() !==
+        req.user.userId
     ) {
       return res.status(403).json({
-        message: "You are not allowed to view this booking",
+        message:
+          "You are not allowed to view this booking",
       });
     }
 
     // Provider can only see their own booking
     if (
       req.user.role === "provider" &&
-      booking.provider._id.toString() !== req.user.userId
+      booking.provider._id.toString() !==
+        req.user.userId
     ) {
       return res.status(403).json({
-        message: "You are not allowed to view this booking",
+        message:
+          "You are not allowed to view this booking",
       });
     }
 
@@ -150,7 +187,10 @@ const getBookingById = async (req, res) => {
       booking,
     });
   } catch (error) {
-    console.error("Get Booking By ID Error:", error);
+    console.error(
+      "Get Booking By ID Error:",
+      error
+    );
 
     res.status(500).json({
       message: "Server error",
@@ -167,14 +207,20 @@ const getAllBookings = async (req, res) => {
     const bookings = await Booking.find()
       .populate("customer", "name email")
       .populate("provider", "name email")
-      .populate("service", "title description price")
+      .populate(
+        "service",
+        "title description price"
+      )
       .sort({ createdAt: -1 });
 
     res.status(200).json({
       bookings,
     });
   } catch (error) {
-    console.error("Get All Bookings Error:", error);
+    console.error(
+      "Get All Bookings Error:",
+      error
+    );
 
     res.status(500).json({
       message: "Server error",
@@ -203,7 +249,8 @@ const acceptBooking = async (req, res) => {
 
     if (booking.status !== "pending") {
       return res.status(400).json({
-        message: "Only pending bookings can be accepted",
+        message:
+          "Only pending bookings can be accepted",
       });
     }
 
@@ -216,7 +263,10 @@ const acceptBooking = async (req, res) => {
       booking,
     });
   } catch (error) {
-    console.error("Accept Booking Error:", error);
+    console.error(
+      "Accept Booking Error:",
+      error
+    );
 
     res.status(500).json({
       message: "Server error",
@@ -245,7 +295,8 @@ const rejectBooking = async (req, res) => {
 
     if (booking.status !== "pending") {
       return res.status(400).json({
-        message: "Only pending bookings can be rejected",
+        message:
+          "Only pending bookings can be rejected",
       });
     }
 
@@ -258,7 +309,10 @@ const rejectBooking = async (req, res) => {
       booking,
     });
   } catch (error) {
-    console.error("Reject Booking Error:", error);
+    console.error(
+      "Reject Booking Error:",
+      error
+    );
 
     res.status(500).json({
       message: "Server error",
@@ -290,7 +344,8 @@ const cancelBooking = async (req, res) => {
       booking.status !== "accepted"
     ) {
       return res.status(400).json({
-        message: "This booking cannot be cancelled",
+        message:
+          "This booking cannot be cancelled",
       });
     }
 
@@ -303,7 +358,10 @@ const cancelBooking = async (req, res) => {
       booking,
     });
   } catch (error) {
-    console.error("Cancel Booking Error:", error);
+    console.error(
+      "Cancel Booking Error:",
+      error
+    );
 
     res.status(500).json({
       message: "Server error",
@@ -332,7 +390,8 @@ const completeBooking = async (req, res) => {
 
     if (booking.status !== "accepted") {
       return res.status(400).json({
-        message: "Only accepted bookings can be completed",
+        message:
+          "Only accepted bookings can be completed",
       });
     }
 
@@ -345,7 +404,10 @@ const completeBooking = async (req, res) => {
       booking,
     });
   } catch (error) {
-    console.error("Complete Booking Error:", error);
+    console.error(
+      "Complete Booking Error:",
+      error
+    );
 
     res.status(500).json({
       message: "Server error",

@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
 import "./Services.css";
 
 function Services() {
@@ -36,7 +35,12 @@ function Services() {
           return;
         }
 
-        setServices(data.services || data);
+        // Only active services should be visible to customers
+        const activeServices = (data.services || data).filter(
+          (service) => service.isActive === true
+        );
+
+        setServices(activeServices);
       } catch (error) {
         console.error("Services error:", error);
         setError("Unable to connect to server");
@@ -50,68 +54,95 @@ function Services() {
 
   return (
     <div className="services-page">
+
+      {/* Header */}
       <div className="services-page-header">
         <p>HOMEHERO SERVICES</p>
 
-        <h1>Find the Right Service for Your Home</h1>
+        <h1>
+          Find the Right Service for Your Home
+        </h1>
 
         <span>
-          Choose from trusted professionals for your home service needs.
+          Choose from trusted professionals for your home
+          service needs.
         </span>
       </div>
 
+      {/* Loading */}
       {loading && (
         <p className="services-message">
           Loading services...
         </p>
       )}
 
+      {/* Error */}
       {error && (
         <p className="services-error">
           {error}
         </p>
       )}
 
-      {!loading && !error && (
+      {/* Services */}
+      {!loading && !error && services.length > 0 && (
         <div className="services-page-grid">
+
           {services.map((service) => (
             <div
               className="services-page-card"
               key={service._id}
             >
+
+              {/* Icon */}
               <div className="services-page-icon">
                 {getServiceIcon(service.category)}
               </div>
 
+              {/* Category */}
               <div className="service-category">
                 {service.category}
               </div>
 
+              {/* Title */}
               <h2>{service.title}</h2>
 
+              {/* Description */}
               <p>{service.description}</p>
 
+              {/* Bottom */}
               <div className="service-bottom">
-                <strong>₹{service.price}</strong>
+
+                <strong>
+                  ₹{service.price}
+                </strong>
 
                 <button
                   onClick={() =>
-                    navigate(`/services/${service._id}`)
+                    navigate(
+                      `/services/${service._id}`
+                    )
                   }
                 >
                   View Details →
                 </button>
+
               </div>
+
             </div>
           ))}
+
         </div>
       )}
 
-      {!loading && !error && services.length === 0 && (
-        <p className="services-message">
-          No services available right now.
-        </p>
-      )}
+      {/* No Services */}
+      {!loading &&
+        !error &&
+        services.length === 0 && (
+          <p className="services-message">
+            No services available right now.
+          </p>
+        )}
+
     </div>
   );
 }

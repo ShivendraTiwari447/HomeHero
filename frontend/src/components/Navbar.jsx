@@ -30,6 +30,7 @@ function Navbar() {
 
       {/* Navigation Links */}
       <div className="nav-links">
+
         {/* Home */}
         <a href="/">
           Home
@@ -83,6 +84,13 @@ function Navbar() {
             >
               Customer Bookings
             </button>
+
+            <button
+              className="nav-link-button"
+              onClick={() => navigate("/provider-services")}
+            >
+              My Services
+            </button>
           </>
         )}
 
@@ -99,6 +107,7 @@ function Navbar() {
 
       {/* Login / User Section */}
       <div className="nav-buttons">
+
         {user ? (
           <>
             <span className="welcome-user">
@@ -129,6 +138,7 @@ function Navbar() {
             </button>
           </>
         )}
+
       </div>
     </nav>
   );

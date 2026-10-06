@@ -55,6 +55,7 @@ function AdminDashboard() {
     return (
       <div className="admin-dashboard">
         <h1>Admin Dashboard</h1>
+
         <p className="admin-loading">
           Loading dashboard...
         </p>
@@ -66,21 +67,31 @@ function AdminDashboard() {
     return (
       <div className="admin-dashboard">
         <h1>Admin Dashboard</h1>
-        <p className="admin-error">{error}</p>
+
+        <p className="admin-error">
+          {error}
+        </p>
       </div>
     );
   }
 
   return (
     <div className="admin-dashboard">
+
       <div className="admin-dashboard-header">
         <div>
           <h1>Admin Dashboard</h1>
-          <p>Overview of your HomeHero platform</p>
+
+          <p>
+            Overview of your HomeHero platform
+          </p>
         </div>
       </div>
 
+      {/* Statistics */}
+
       <div className="admin-stats-grid">
+
         <div className="admin-stat-card">
           <div className="admin-stat-icon">👥</div>
 
@@ -125,11 +136,13 @@ function AdminDashboard() {
             <p>{stats.bookings}</p>
           </div>
         </div>
+
       </div>
 
       {/* Manage Users */}
 
       <div className="admin-management-section">
+
         <h2>User Management</h2>
 
         <p>
@@ -143,7 +156,29 @@ function AdminDashboard() {
         >
           Manage Users
         </button>
+
       </div>
+
+      {/* Manage Services */}
+
+      <div className="admin-management-section">
+
+        <h2>Service Management</h2>
+
+        <p>
+          View and manage all services available on
+          the HomeHero platform.
+        </p>
+
+        <button
+          className="manage-users-btn"
+          onClick={() => navigate("/admin-services")}
+        >
+          Manage Services
+        </button>
+
+      </div>
+
     </div>
   );
 }

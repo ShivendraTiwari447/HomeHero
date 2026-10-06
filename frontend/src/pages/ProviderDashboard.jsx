@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./ProviderDashboard.css";
@@ -38,7 +37,10 @@ function ProviderDashboard() {
 
         setBookings(data.bookings || data);
       } catch (error) {
-        console.error("Provider Dashboard error:", error);
+        console.error(
+          "Provider Dashboard error:",
+          error
+        );
       } finally {
         setLoading(false);
       }
@@ -80,7 +82,10 @@ function ProviderDashboard() {
       {/* Dashboard Header */}
       <div className="provider-dashboard-header">
         <h1>Provider Dashboard</h1>
-        <p>Manage your customer service requests</p>
+
+        <p>
+          Manage your customer service requests
+        </p>
       </div>
 
       {/* Dashboard Cards */}
@@ -117,15 +122,19 @@ function ProviderDashboard() {
       <div className="provider-dashboard-actions">
 
         <button
-          onClick={() => navigate("/provider-bookings")}
+          onClick={() =>
+            navigate("/provider-bookings")
+          }
         >
           View Customer Bookings
         </button>
 
         <button
-          onClick={() => navigate("/services")}
+          onClick={() =>
+            navigate("/provider-services")
+          }
         >
-          View Services
+          My Services
         </button>
 
       </div>
@@ -135,4 +144,3 @@ function ProviderDashboard() {
 }
 
 export default ProviderDashboard;
-

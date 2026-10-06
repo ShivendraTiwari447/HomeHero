@@ -1,0 +1,121 @@
+.admin-services-page {
+  min-height: 100vh;
+  padding: 40px 20px;
+  background: #f5f7fb;
+}
+
+.admin-services-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.admin-services-container h1 {
+  margin-bottom: 8px;
+  color: #222;
+}
+
+.admin-services-subtitle {
+  color: #666;
+  margin-bottom: 30px;
+}
+
+.services-table-wrapper {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  overflow-x: auto;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+.admin-services-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 850px;
+}
+
+.admin-services-table th,
+.admin-services-table td {
+  padding: 15px;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+}
+
+.admin-services-table th {
+  background: #f8f9fa;
+  color: #333;
+  font-size: 14px;
+}
+
+.admin-services-table td {
+  color: #444;
+  font-size: 14px;
+}
+
+.admin-services-table td small {
+  color: #888;
+  font-size: 12px;
+}
+
+.service-active,
+.service-inactive {
+  display: inline-block;
+  padding: 6px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.service-active {
+  background: #e7f8ee;
+  color: #16834a;
+}
+
+.service-inactive {
+  background: #fdeaea;
+  color: #c62828;
+}
+
+.deactivate-btn,
+.activate-btn,
+.delete-service-btn {
+  border: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+  margin-right: 8px;
+}
+
+.deactivate-btn {
+  background: #fff3cd;
+  color: #856404;
+}
+
+.activate-btn {
+  background: #dff5e7;
+  color: #167a42;
+}
+
+.delete-service-btn {
+  background: #fde2e2;
+  color: #c62828;
+}
+
+.deactivate-btn:hover,
+.activate-btn:hover,
+.delete-service-btn:hover {
+  opacity: 0.8;
+}
+
+.admin-services-loading {
+  text-align: center;
+  margin-top: 80px;
+  color: #555;
+}
+
+.no-services {
+  text-align: center;
+  padding: 30px;
+  color: #777;
+}
